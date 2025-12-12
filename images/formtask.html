@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studen form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+    <style>
+        * {
+            padding: 0%;
+            margin: 0%;
+            box-sizing: border-box !important;
+        }
+
+        .hero-image{
+            width:100%;
+            height: 100vh;
+            background-size:contain;
+            background-position: center;
+        }
+
+
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 16px;
+            border-radius: 12px;
+            background-color: white;
+            position: absolute;
+            width: fit-content;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .form-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 8px;
+            align-items: center;
+            width: 300px;
+        }
+
+        .input-fields {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 8px;
+            width: fit-content;
+        }
+
+        .form-right img {
+            width: 500px;
+            height: auto;
+        }
+
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 8px 16px;
+            background: #6F00FF;
+            background: linear-gradient(114deg, rgba(111, 0, 255, 1) 0%, rgba(252, 70, 107, 1) 100%);
+            color: white;
+            border: 2px solid white;
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            /* pointer-events: none; */
+        }
+
+        input {
+            padding: 4px 8px;
+            border-radius: 8px;
+            border: none;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
+
+        .entercorrectpassword,
+        .entercorrectemail,
+        .entercorrectname {
+            display: none;
+            color: red;
+            font-size: 16px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+        <img class="hero-image w-full h-auto object-cover" src="./bg-gradient.jpg">
+        <div class="form-container flex flex-col md:flex md:flex-row">
+            <div class="form-left">
+                <h1 class="text-2xl font-italic"><b>Student Form</b></h1>
+                <div class="input-fields">
+                    <input id="name" type="text" placeholder="enter the name">
+                    <p class="entercorrectname">Enter a Correct name</p>
+                    <input id="emailid" type="email" placeholder="enter the Email">
+                    <p class="entercorrectemail">Enter a Correct Email</p>
+
+                    <input id="Pswd" type="password" placeholder="enter the Password">
+                    <p class="entercorrectpassword">Enter a Correct Password</p>
+                </div>
+                <button id="submitBtn" type="button">Submit</button>
+
+            </div>
+            <div class="form-right">
+                <img src="./login-illustration.jpg">
+            </div>
+
+
+        </div>
+</body>
+
+<script>
+    const crtname = /\w/;
+    const crtemail = /^[a-zA-Z0-9]+@gmail\.com$/;
+    const crtpassword = /^[a-zA-Z0-9]+$/;
+
+
+    const nameEl = document.getElementById('name');
+    const emailEl = document.getElementById('emailid');
+    const pswdEl = document.getElementById('Pswd');
+    const submitBtn = document.getElementById('submitBtn');
+
+    const nameErr = document.querySelector('.entercorrectname');
+    const emailErr = document.querySelector('.entercorrectemail');
+    const passErr = document.querySelector('.entercorrectpassword');
+
+    function validateAllPointer() {
+        const nameValid = crtname.test(nameEl.value.trim());
+        const emailValid = crtemail.test(emailEl.value.trim());
+        const passValid = crtpassword.test(pswdEl.value);
+
+        nameErr.style.display = nameValid ? 'none' : 'block';
+        emailErr.style.display = emailValid ? 'none' : 'block';
+        passErr.style.display = passValid ? 'none' : 'block';
+
+        if (nameValid && emailValid && passValid) {
+            submitBtn.style.pointerEvents = 'auto';
+            submitBtn.style.opacity = '1';
+            submitBtn.style.cursor = 'pointer';
+        }
+        else {
+            submitBtn.style.pointerEvents = "none";
+            submitBtn.style.opacity = '0.4';
+            submitBtn.style.cursor = 'not-allowed';
+        }
+    }
+
+    nameEl.addEventListener('input', validateAllPointer);
+    emailEl.addEventListener('input', validateAllPointer);
+    pswdEl.addEventListener('input', validateAllPointer);
+    validateAllPointer();
+
+    submitBtn.addEventListener('click', () => {
+        alert("submitted")
+
+    });
+</script>
+
+
+</html>

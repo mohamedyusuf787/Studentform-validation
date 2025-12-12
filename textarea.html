@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>textarea task</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        *{
+            padding: 0%;
+            margin: 0%;
+            box-sizing: border-box;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            /* Set the background image and size here */
+            background-image: url('./pattern.png');
+            background-size: cover;
+            background-repeat: repeat;
+            opacity: 0.25;
+            z-index: -1;
+            overflow: hidden;
+        }
+        body::-webkit-scrollbar{
+            display: none;
+            overflow: hidden;
+        }
+        .contents{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        textarea {
+            width: 80%;
+            background: none;
+            background-color: white;
+        }
+
+        textarea:focus {
+            border: none;
+            outline: none;
+        }
+
+        img {
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            z-index: -10;
+            /* Ensures the image is at the very back */
+            opacity: 0.25;
+            /* Your opacity setting */
+        }
+    </style>
+</head>
+
+<body class="p-10 text-center flex flex-col justify-center items-center text-black ">
+    <div class="contents">
+        <h1 class="font-bold text-2xl mb-4 underline">TEXTAREA TASK</h1>
+        <p>This textarea allows up to 200 characters. Extra text will be automatically removed once the limit is
+            reached.
+        </p>
+        <div class="relative border border-black rounded-xl p-1 mt-4 z-11  w-full bg-white">
+            <textarea id="textarea" class="p-4 border-none w-full rounded-xl text-black bg-white"
+                placeholder="Add text within 200 words"></textarea>
+            <p class="absolute right-2 bottom-2 text-black"><span id="number">200</span>/200</p>
+        </div>
+        <p id="char-typed" class="font-bold">Character you typed:</p>
+        <p id="char-remain" class="font-bold">Remaining Character: </p>
+    </div>
+    <!-- <img class="absolute opacity-25 z-0" src="./pattern.png"> -->
+</body>
+
+<script>
+    let num = document.getElementById("number")
+    let textarea = document.getElementById("textarea")
+    let chartyped = document.getElementById("char-typed")
+    let charremain = document.getElementById("char-remain")
+    let max = 200
+    textarea.addEventListener("input", () => {
+        let length = textarea.value.length
+        if (length >= max) {
+            textarea.value = textarea.value.substring(0, max);   //substring() can remove the beyond the max value
+            alert("you enter max limit")
+        }
+        num.textContent = max - length;
+        chartyped.textContent = `Charact you typed: ${length}`
+        charremain.textContent = `Remaining Character: ${max - length}`
+    })
+
+</script>
+
+</html>
